@@ -6,7 +6,7 @@ const Chatlist = () => {
     <div className="chatlist">
       <div className="search">
         <div className="searchBar">
-          <img src="/search.png" alt="" srcset="" />
+          <img src="/search.png" alt="" />
           <input type="text" placeholder="Search" name="" id="" />
         </div>
         <img
@@ -17,19 +17,19 @@ const Chatlist = () => {
         />
       </div>
       <div className="item">
-        <img src="./avatar.png" alt="" srcset="" />
+        <img src="./avatar.png" alt="" />
         <div className="texts">
           <span>Sumit</span>
         </div>
       </div>
       <div className="item">
-        <img src="./avatar.png" alt="" srcset="" />
+        <img src="./avatar.png" alt="" />
         <div className="texts">
           <span>Sumit</span>
         </div>
       </div>
       <div className="item">
-        <img src="./avatar.png" alt="" srcset="" />
+        <img src="./avatar.png" alt="" />
         <div className="texts">
           <span>Sumit</span>
         </div>

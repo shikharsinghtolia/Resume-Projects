@@ -4,6 +4,8 @@
   box-sizing: border-box;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  
+  scrollbar-width: none;
 }
 
 body{
@@ -21,6 +23,6 @@ body{
   background-color: rgba(17,25,40,0.75);
   border-radius: 15px;
   backdrop-filter: blur(19px) saturate(180%) ;
-  border:8px solid rgba(255,255,255,0.125);
+  /* border:8px solid rgba(255,255,255,0.125); */
   display: flex;
 }
