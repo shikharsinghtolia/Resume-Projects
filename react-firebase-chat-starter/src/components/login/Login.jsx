@@ -22,6 +22,13 @@ const Login = () => {
     e.preventDefault()
     toast.warn("hey")
   }
+  const handleRegister = e=>{
+    e.preventDefault()
+    toast.warn("hey")
+    const formData = new FormData()
+
+    
+  }
   return (
     <div className="login">
       <div className="item">
@@ -39,7 +46,7 @@ const Login = () => {
       <div className="separator"></div>
       <div className="item">
         <h3>Hey Create An Account Before You Start</h3>
-        <form>
+        <form onSubmit={handleRegister}>
           <label htmlFor="file">
             <img src={avatar.url || "./avatar.png"} alt="" />
             Upload Your Profile Picture
