@@ -9,16 +9,17 @@ import {getStorage} from "firebase/storage"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCKFLRWyMtnpgmCPMW_MEjOwmtDME5vtJc",
-  authDomain: "chatapp-c7b86.firebaseapp.com",
-  projectId: "chatapp-c7b86",
-  storageBucket: "chatapp-c7b86.appspot.com",
-  messagingSenderId: "874445358833",
-  appId: "1:874445358833:web:9585d78d208785c4a90b50",
-  measurementId: "G-B8W0PTH7LS"
+// For Firebase JS SDK v7.20.0 and later, measurementId is optionalconst firebaseConfig = {
+  apiKey: process.env.API_KEY_FIREBASE,
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
 };
+
+// Copy all the data from firebase config on firebase website 
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
