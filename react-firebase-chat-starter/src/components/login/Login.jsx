@@ -1,9 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import "./login.css";
+import { initializeApp } from "firebase/app";
+import App from "../../App";
+import { auth, db } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import upload from "../../lib/upload";
+// import App from "../../App";
 const Login = () => {
-
+  // const auth = getAuth(App)
   const user = false;
   const [avatar, setAvatar] = useState({
     file: null,
@@ -18,17 +25,39 @@ const Login = () => {
       });
     }
   };
-  const handleLogin = e=>{
-    e.preventDefault()
-    toast.warn("hey")
-  }
-  const handleRegister = e=>{
-    e.preventDefault()
-    toast.warn("hey")
-    const formData = new FormData()
+  const handleLogin = (e) => {
+    e.preventDefault();
+    toast.warn("hey");
+  };
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    toast.warn("hey");
+    const formData = new FormData(e.target);
 
-    
-  }
+    const { username, email, password } = Object.fromEntries(formData);
+    try {
+      // initializeApp(App)
+      const imgUrl = await upload(avatar.file);
+      console.log(imgUrl);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", res.user.uid), {
+        avatar: imgUrl,
+        username: username,
+        email: email,
+        id: res.user.uid,
+        blocked: [],
+      });
+      await setDoc(doc(db, "userChats", res.user.uid), {
+        chats: [],
+      });
+      toast.success("Account Done");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+
+    console.log(username, email, password);
+  };
   return (
     <div className="login">
       <div className="item">
@@ -41,7 +70,7 @@ const Login = () => {
             placeholder="Enter your Password"
           />
           <button>Log In</button>
-        </form >
+        </form>
       </div>
       <div className="separator"></div>
       <div className="item">
