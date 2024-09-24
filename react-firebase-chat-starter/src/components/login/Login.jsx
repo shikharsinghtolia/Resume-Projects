@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import "./login.css";
-import { initializeApp } from "firebase/app";
-import App from "../../App";
+// import { initializeApp } from "firebase/app";
+// import App from "../../App";
 import { auth, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import upload from "../../lib/upload";
@@ -17,6 +17,10 @@ const Login = () => {
     url: "",
   });
 
+  const [loading , setLoading] = useState(false)
+
+  
+
   const handleAvatar = (e) => {
     if (e.target.files[0]) {
       setAvatar({
@@ -25,13 +29,27 @@ const Login = () => {
       });
     }
   };
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    toast.warn("hey");
+    const formData = new FormData(e.target);
+    const { email, password } = Object.fromEntries(formData);
+    console.log(email,password)
+    setLoading(true)
+    try {
+      await signInWithEmailAndPassword(auth,email,password);
+      toast.success("Loged in ")
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }finally{
+      setLoading(false)
+    }
+
   };
   const handleRegister = async (e) => {
     e.preventDefault();
-    toast.warn("hey");
+    setLoading(true)
+    // toast.warn("hey");
     const formData = new FormData(e.target);
 
     const { username, email, password } = Object.fromEntries(formData);
@@ -54,6 +72,9 @@ const Login = () => {
     } catch (err) {
       console.log(err);
       toast.error(err.message);
+      
+    }finally{
+      setLoading(false)
     }
 
     console.log(username, email, password);
@@ -63,13 +84,13 @@ const Login = () => {
       <div className="item">
         <h2>Welcome To Chat App</h2>
         <form onSubmit={handleLogin}>
-          <input type="text" placeholder="Enter your email ID" />
+          <input type="email" name="email" placeholder="Enter your email ID" />
           <input
             type="password"
             name="password"
             placeholder="Enter your Password"
           />
-          <button>Log In</button>
+          <button disabled={loading}>{loading ? "Loading": "Sign In" }</button>
         </form>
       </div>
       <div className="separator"></div>
@@ -99,7 +120,7 @@ const Login = () => {
             name="password"
             placeholder="Enter Your Password"
           />
-          <button>Sign Up</button>
+          <button disabled={loading}>{loading ? "Loading": "Sign Up" }</button>
         </form>
       </div>
     </div>
