@@ -6,4 +6,4 @@
 **2.Sorting Visualizer:-**<br/>
    Live Link:- https://sortingvisualizerbyshikhar.netlify.app/
 
-**3. Chat-Application with Firebase backend :-**<br/>
+**3. Full Stack Chat application :-**<br/>
