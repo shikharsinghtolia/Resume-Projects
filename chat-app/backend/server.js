@@ -1,20 +1,31 @@
-const express = require("express")
-const chats = require("./data/data")
+const express = require("express");
 
-const app = express()
+const chats = require("./data/data");
 
-app.get('/',(req,res)=>{
-    res.send("Api is here ")
-})
+const connectDB = require("./config/db");
 
-app.get("/api/chat",(req,res)=>{
-    res.send(chats);
-})
+const dotenv = require("dotenv");
 
-app.get("/api/chat/:id",(req,res)=>{
-    const singleChat = chats.find(c=>c._id === req.params.id);
-    res.send(singleChat)
-})
+const colors = require("colors");
+
+const userRoutes = require("./Routes/userRoutes");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+
+dotenv.config();
+
+const app = express();
+
+app.use(express.json());
+
+connectDB();
+app.get("/", (req, res) => {
+  res.send("Api is here ");
+});
+
+app.use("/api/user", userRoutes);
+
+app.use(notFound)
+app.use(errorHandler)
 
 
-app.listen(5000,console.log("Server started"));
+app.listen(5000, console.log("Server started".yellow.bold));
