@@ -45,9 +45,9 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
-  if (user && await user.matchPassword(password)) {
+  if (user && (await user.matchPassword(password))) {
     res.status(200).json({
-      message:"SucessFull login",
+      message: "SucessFull login",
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -60,4 +60,21 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser };
+// All user handler
+//rote /api/user
+
+const allUser = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+  // console.log(keyword)
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  res.send(users);
+});
+
+module.exports = { registerUser, authUser, allUser };
