@@ -8,11 +8,19 @@ import {
   TabPanel,
   TabPanels,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Login from "../components/auth/Login";
 import SignUp from "../components/auth/SignUp";
-
+import { useNavigate } from "react-router-dom";
+// import ChatProvider from "../Context/chatProvider";
 const Homepage = () => {
+  const navigate = useNavigate();
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if(user){
+      navigate("/chats")
+    }
+  },[navigate])
   return (
     <Container maxH="xl" centerContent>
       <Box
@@ -28,7 +36,7 @@ const Homepage = () => {
         borderWidth="1px"
       >
         <Text fontSize="4xl" fontFamily="work sans" color={"black"}>
-          Vartalap
+        वार्तालाप
         </Text>
       </Box>
       <Box

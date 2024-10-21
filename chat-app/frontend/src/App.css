@@ -9,8 +9,21 @@ body {
   min-height: 100vh;
   display: flex;
   scrollbar-width: none;
-  background: linear-gradient(90deg, #002347, #081437, #050d31);
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Keeps the background fixed while scrolling */
-  min-height: 100vh; /* Ensures it covers at least the full viewport height */
+  background: #ddd6f3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #faaca8, #ddd6f3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #faaca8, #ddd6f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
